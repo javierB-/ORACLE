@@ -9,7 +9,7 @@ cat <<EOF
 USE ONLY INTERACTIVELY:
   sqlplus enriched to save input and output trace.
 Use:
-  sqlpluss [-f fout] user / password @ conection @scripts ...
+  sqlpluss [-f fout] user/password@conection @scripts ...
      (fout will be opened in add mode and it will default to yyyymmdd.log)
       
 summary:
@@ -45,3 +45,9 @@ echo ==================  >> $FOUT
 echo INI:`date`:  $0 $* >> $FOUT
 echo ------------------  >> $FOUT
 echo sqlplus $@ >> $FOUT
+
+tee -a $FOUT | sqlplus $@ |  tee -a $FOUT
+
+echo ------------------  >> $FOUT
+echo FIN:`date`:  $0 $* >> $FOUT
+echo ------------------  >> $FOUT
